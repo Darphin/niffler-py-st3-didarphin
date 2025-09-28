@@ -1,0 +1,1 @@
+TEST_CATEGORY = "new_cat"
