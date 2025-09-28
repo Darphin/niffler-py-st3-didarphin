@@ -6,11 +6,15 @@ from niffler_qa_5.pages.main_page import MainPage
 from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
+import allure
+from niffler_qa_5.marks import Labels, Feature
 
 main_page = MainPage()
 auth_page = AuthPage()
 
+
+@allure.label(Labels.web)
+@allure.feature(Feature.login)
 class TestLogin:
     @pytest.fixture(scope="function")
     def incognito_loh(self, envs):

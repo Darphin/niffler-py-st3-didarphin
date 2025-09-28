@@ -19,6 +19,8 @@ dependencies = [
     "pkce (>=1.0.3,<2.0.0)",
     "sqlmodel (>=0.0.24,<0.0.25)",
     "psycopg2 (>=2.9.10,<3.0.0)",
+    "allure-pytest (>=2.15.0,<3.0.0)",
+    "requests-toolbelt (>=1.0.0,<2.0.0)",
 
 ]
 

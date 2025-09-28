@@ -1,11 +1,13 @@
 import json
 from dataclasses import asdict
 from urllib.parse import urljoin
-
+import allure
+from allure_commons.types import AttachmentType
+from requests import Response
+from requests_toolbelt.utils.dump import dump_response
 import requests
 
-from niffler_qa_5.models.spend import Category, SpendAdd, Spend
-
+from niffler_qa_5.models.spend import Category, SpendAdd
 
 class SpendsHttpClient:
     session: requests.Session
@@ -19,6 +21,13 @@ class SpendsHttpClient:
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/json'
         })
+        self.session.hooks["response"].append(self.attach_response)
+
+
+    @staticmethod
+    def attach_response(response: Response, *args, **kwargs):
+        attachment_name = response.request.method + " " + response.request.url
+        allure.attach(dump_response(response), attachment_name, attachment_type=AttachmentType.TEXT)
 
     def get_categories(self):
         response = self.session.get(urljoin(self.base_url, "/api/categories/all"))
